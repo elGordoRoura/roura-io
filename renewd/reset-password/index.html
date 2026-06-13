@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Reset your Renewd password</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; padding: 2rem 1rem; background: Canvas; color: CanvasText; display: flex; justify-content: center; }
+  main { max-width: 420px; width: 100%; }
+  h1 { font-size: 1.5rem; margin: 0 0 0.5rem; }
+  .brand { background: linear-gradient(135deg, #34c759, #0a84ff); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+  p { line-height: 1.5; color: color-mix(in srgb, CanvasText 70%, transparent); }
+  label { display: block; font-weight: 600; margin: 1rem 0 0.35rem; font-size: 0.95rem; }
+  input { width: 100%; box-sizing: border-box; padding: 0.7rem 0.8rem; font-size: 1rem; border: 1px solid color-mix(in srgb, CanvasText 25%, transparent); border-radius: 10px; background: color-mix(in srgb, Canvas 95%, CanvasText); color: CanvasText; }
+  button { width: 100%; margin-top: 1.25rem; padding: 0.8rem; font-size: 1rem; font-weight: 700; color: #fff; background: #34c759; border: none; border-radius: 12px; cursor: pointer; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  .message { margin-top: 1rem; padding: 0.75rem 1rem; border-radius: 10px; font-size: 0.95rem; display: none; }
+  .message.error { display: block; background: color-mix(in srgb, #ff3b30 15%, Canvas); }
+  .message.success { display: block; background: color-mix(in srgb, #34c759 18%, Canvas); }
+</style>
+</head>
+<body>
+<main>
+  <h1><span class="brand">Renewd</span> — reset your password</h1>
+  <p id="intro">Choose a new password for your account.</p>
+
+  <form id="reset-form">
+    <label for="password">New password</label>
+    <input type="password" id="password" autocomplete="new-password" minlength="8" required>
+
+    <label for="confirm">Confirm new password</label>
+    <input type="password" id="confirm" autocomplete="new-password" minlength="8" required>
+
+    <button type="submit" id="submit">Set new password</button>
+  </form>
+
+  <div class="message" id="message" role="alert"></div>
+
+<script>
+  // The Renewd production API base URL (api.roura.io → API Gateway → Lambda).
+  const API_BASE = "https://api.roura.io";
+
+  const params = new URLSearchParams(location.search);
+  const token = params.get("token");
+  const form = document.getElementById("reset-form");
+  const message = document.getElementById("message");
+  const submit = document.getElementById("submit");
+
+  function show(kind, text) {
+    message.className = "message " + kind;
+    message.textContent = text;
+  }
+
+  if (params.get("error") || !token) {
+    form.style.display = "none";
+    document.getElementById("intro").textContent = "";
+    show("error", "This reset link is invalid or has expired. Request a new one from the Renewd sign-in screen.");
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm").value;
+    if (password !== confirm) { show("error", "Passwords don't match."); return; }
+    if (password.length < 8) { show("error", "Password must be at least 8 characters."); return; }
+
+    submit.disabled = true;
+    try {
+      const response = await fetch(API_BASE + "/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newPassword: password, token }),
+      });
+      if (response.ok) {
+        form.style.display = "none";
+        show("success", "Password updated. Open Renewd on your iPhone and sign in with your new password.");
+      } else {
+        const body = await response.json().catch(() => ({}));
+        show("error", body.message || "That didn't work — the link may have expired. Request a new reset email from the app.");
+        submit.disabled = false;
+      }
+    } catch {
+      show("error", "Couldn't reach the server. Check your connection and try again.");
+      submit.disabled = false;
+    }
+  });
+</script>
+</main>
+</body>
+</html>

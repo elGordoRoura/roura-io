@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RenewdTV Privacy Policy</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; padding: 2rem 1rem 4rem; background: Canvas; color: CanvasText; display: flex; justify-content: center; }
+  main { max-width: 680px; width: 100%; line-height: 1.6; }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.25rem; margin-top: 2rem; }
+  h3 { font-size: 1.05rem; margin-top: 1.5rem; }
+  .brand { background: linear-gradient(135deg, #34c759, #0a84ff); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
+  .meta, li, p { color: color-mix(in srgb, CanvasText 80%, transparent); }
+  .draft { padding: 0.75rem 1rem; border-radius: 10px; background: color-mix(in srgb, #ff9f0a 18%, Canvas); font-size: 0.9rem; }
+  a { color: #0a84ff; }
+</style>
+</head>
+<body>
+<main>
+  <h1><span class="brand">RenewdTV</span> Privacy Policy</h1>
+  <!-- OWNER: before publishing — set the effective date and delete this draft banner. -->
+  <p class="draft">DRAFT — for review by the owner and a qualified attorney before publishing.</p>
+  <p class="meta"><strong>Effective date:</strong> [to be set on publish]</p>
+
+  <p>RenewdTV is an iOS app for tracking the movies and TV shows you watch and getting personalized recommendations. It is built and operated by Christopher Roura (roura.io). This policy explains what data the app collects, why, where it lives, and what control you have over it.</p>
+  <p>The short version: we collect what we need to run your account and your watch list, we don't sell your data, and we don't use advertising, tracking, or analytics SDKs.</p>
+
+  <h2>What we collect</h2>
+
+  <h3>Account data</h3>
+  <p>When you create an account, we store:</p>
+  <ul>
+    <li>Your email address</li>
+    <li>A display name (optional)</li>
+    <li>A unique username</li>
+    <li>If you sign up with email and password: a hash of your password (we never store the password itself)</li>
+    <li>If you sign in with Apple or Google: the sign-in identifiers those services provide</li>
+  </ul>
+  <p>This data is stored on our backend, which runs on AWS (Lambda, us-east-1 region) with a Neon Postgres database.</p>
+
+  <h3>Content data</h3>
+  <p>As you use the app, we store the activity that makes your watch list and recommendations work:</p>
+  <ul>
+    <li>The titles on your watch list and the titles you track</li>
+    <li>Watch statuses for each title (want to watch, watching, watched, abandoned)</li>
+    <li>Per-episode watch events for TV shows</li>
+    <li>Title-detail view events — that is, which title pages you open ("engagement")</li>
+  </ul>
+  <p>We use this data to maintain your lists across devices and to personalize your recommendations (your "Vibe Score").</p>
+  <p>We also use this same history to build your Renewd Rewind — monthly and yearly recaps computed on our servers from your own activity. Only you can see your Rewind. Share cards are rendered on your device and leave it only when you choose to share one.</p>
+
+  <h3>Vibe Blends</h3>
+  <p>Blends are opt-in. If you accept a blend invite, your saved titles and watch signals contribute to that blend's shared recommendations — other members see the blended results (for example, "you both saved this"), never your watch history itself. Leaving a blend, or blocking another user, stops your data from contributing. Declining an invite shares nothing.</p>
+
+  <h3>Notifications and push tokens</h3>
+  <p>If you enable notifications, we store the device push token Apple assigns to your device, linked to your account, solely to deliver the notifications you turned on (blend invites and tracked-show alerts). You can switch each kind on or off in Settings — the server checks your preferences before sending anything. Signing out deactivates the token.</p>
+
+  <h3>Preferences</h3>
+  <p>Two settings — your content language override and your adult-content filter — are stored only on your device. They are not synced to our servers. Your lists and watch events, by contrast, do sync to your account (see "Where your data lives" below).</p>
+
+  <h2>Where your data lives</h2>
+  <p>RenewdTV is local-first: your data is stored on your device (using Apple's SwiftData) and syncs to your account on our backend so you don't lose it and can use it across devices. The backend runs on AWS Lambda in the us-east-1 region (United States) with data stored in Neon Postgres.</p>
+
+  <h2>Third-party data sources: TMDB and TVmaze</h2>
+  <p>Movie and TV metadata in RenewdTV (titles, posters, descriptions, episode lists, and so on) comes from TMDB (The Movie Database). When you search or browse, the app sends your queries — search terms and language/region parameters — to TMDB's API to fetch that content. TMDB's own privacy policy governs how TMDB handles those requests.</p>
+  <p>Upcoming-episode air dates for tracked shows come from TVmaze. Our server asks TVmaze about the shows themselves — these lookups carry no account information.</p>
+  <p>We do not send TMDB or TVmaze your account information, your watch list, or your watch history.</p>
+
+  <h2>What we don't do</h2>
+  <ul>
+    <li>No advertising</li>
+    <li>No tracking SDKs</li>
+    <li>No analytics SDKs</li>
+    <li>No sale of your data, ever</li>
+  </ul>
+
+  <h2>On-device machine learning</h2>
+  <p>Recommendation scoring runs on your device using a model bundled with the app — your individual interaction data is not sent to a server for scoring.</p>
+  <p>Aggregated interaction signals (titles and their watch statuses) may be used to retrain our recommendation models over time.</p>
+
+  <h2>Account deletion</h2>
+  <p>You can delete your account in the app: <strong>Profile → Delete Account</strong>. Deletion permanently removes your account and all synced data from our servers.</p>
+
+  <h2>Subscriptions and payments</h2>
+  <p>We plan to offer a premium subscription through the Apple App Store. Apple handles all payment processing — the app never sees your card details or other payment information. Apple's privacy policy governs payment data.</p>
+  <!-- OWNER: update this section from "planned" to live terms when the subscription ships. -->
+
+  <h2>Data retention</h2>
+  <p>We keep your account data for as long as your account exists. When you delete your account, that data is deleted.</p>
+
+  <h2>Children</h2>
+  <p>RenewdTV is not directed at children under 13, and we do not knowingly collect personal information from children under 13. If you believe a child under 13 has created an account, contact us and we will delete it.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If we change this policy, we will update the effective date above and, for significant changes, let you know in the app.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about this policy or your data: <a href="mailto:support@roura.io">support@roura.io</a></p>
+</main>
+</body>
+</html>
